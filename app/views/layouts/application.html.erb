@@ -12,7 +12,13 @@
 
   <body>
     <%= link_to 'Home', root_path %>
-    <%= link_to 'Dashboard', dashboard_path %>
+    <% if user_signed_in? %>
+      <%= link_to 'Dashboard', dashboard_path %>
+      <%= current_user.email %>
+      <%= button_to 'log out', logout_path, method: :delete %>
+    <% else %>
+      <%= button_to 'sign in with Github', '/auth/github', data: { turbo: false } %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
